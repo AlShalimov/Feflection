@@ -17,27 +17,33 @@ public class ReflectionTest {
     @Test
     public void testEvokeMethodsWithoutParameters() {
         PersonClassForTest testObject = new PersonClassForTest();
-        List<?> methods = Reflection.invokeMethodsWithoutParameters(testObject);
+        List<?> methods = Reflection.invokeMethodsWithOutParameters(testObject);
         assertEquals(7, methods.size());
         assertTrue(methods.contains("method1"));
         assertTrue(methods.contains("method3"));
         assertFalse(methods.contains("method2"));
     }
 
-    //Asc about test correctness criterion
     @Test
-    public void testPrintSignatureFinalMethods() throws InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
-        Reflection.methodsWithSignatureContainsFinal(Reflection.createObject(PersonClassForTest.class));
+    public void testPrintSignatureFinalMethods() {
+        PersonClassForTest testObject = new PersonClassForTest();
+        List<?> methods = Reflection.methodsWithSignatureContainsFinal(testObject);
+        assertEquals(2, methods.size());
+        assertTrue(methods.contains("printName"));
+        assertTrue(methods.contains("hello"));
     }
 
     @Test
     public void testPrintMethodsModifierExceptPublic() {
-        Reflection.classWithoutPublicMethods(PersonClassForTest.class);
+        List<?> methods = Reflection.classWithOutPublicMethods(PersonClassForTest.class);
+        assertEquals(5, methods.size());
+        assertTrue(methods.contains("printData"));
     }
 
     @Test
     public void testPrintSuperClassAndInterface() {
-        Reflection.returnAllSuperClassesAndInterfacesOfClass(PersonClassForTest.class);
+        List<?> ListWithSuperClassesAndInterfaces = Reflection.returnAllSuperClassesAndInterfacesOfClass(PersonClassForTest.class);
+        assertEquals(2, ListWithSuperClassesAndInterfaces.size());
     }
 
     @Test
